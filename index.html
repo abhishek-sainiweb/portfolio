@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Saini — Tech for humans, not humans for tech</title>
+<meta name="description" content="Abhishek Saini — a self-taught, human-first builder from India using AI to turn rooted, sustainable ideas into real things.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F0D;
+    --bg-soft:#0E1612;
+    --panel:#121C17;
+    --panel-2:#16221C;
+    --line:rgba(236,231,218,0.10);
+    --line-strong:rgba(236,231,218,0.18);
+    --bone:#ECE7DA;
+    --bone-dim:#BBC2B8;
+    --mute:#7E8B82;
+    --amber:#F0B860;
+    --amber-deep:#D9933A;
+    --moss:#87E0B4;
+    --moss-deep:#52C198;
+    --grad:linear-gradient(100deg,var(--amber) 0%, #C9C56F 42%, var(--moss) 100%);
+    --maxw:1140px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--bone);
+    font-family:"Instrument Sans",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(900px 600px at 78% -8%, rgba(135,224,180,.10), transparent 60%),
+      radial-gradient(820px 560px at 8% 8%, rgba(240,184,96,.10), transparent 62%),
+      var(--bg);
+  }
+
+  ::selection{background:rgba(135,224,180,.28);color:#fff}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:12.5px; letter-spacing:.28em; text-transform:uppercase;
+    color:var(--moss); display:inline-flex; align-items:center; gap:.8em;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--moss);opacity:.7}
+
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    transition:background .4s var(--ease), border-color .4s var(--ease), backdrop-filter .4s;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:rgba(10,15,13,.72);
+    backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Bricolage Grotesque";font-weight:600;letter-spacing:-.01em}
+  .brand .mark{
+    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:var(--grad); color:#0A0F0D; font-weight:700; font-size:14px;
+    box-shadow:0 0 22px rgba(135,224,180,.35);
+  }
+  .nav-links{display:flex;gap:30px;font-size:14.5px;color:var(--bone-dim)}
+  .nav-links a{position:relative;transition:color .25s}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--grad);transition:width .3s var(--ease)}
+  .nav-links a:hover{color:var(--bone)}
+  .nav-links a:hover::after{width:100%}
+  @media(max-width:760px){.nav-links{display:none}}
+
+  /* ---------- HERO ---------- */
+  header{
+    position:relative; min-height:100svh;
+    display:flex; align-items:center;
+    padding:120px 0 80px;
+    overflow:hidden;
+  }
+  #roots{position:absolute; inset:0; z-index:0; pointer-events:none}
+  header .wrap{position:relative;z-index:2}
+  header::after{ /* soften canvas at edges so text stays legible */
+    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(1200px 700px at 32% 52%, transparent 0%, transparent 38%, rgba(10,15,13,.55) 100%);
+  }
+
+  .hero-eyebrow{margin-bottom:30px}
+  h1.hero{
+    font-family:"Bricolage Grotesque";
+    font-weight:600;
+    font-size:clamp(2.7rem,7.4vw,5.6rem);
+    line-height:1.02;
+    letter-spacing:-.035em;
+    max-width:15ch;
+  }
+  h1.hero .em{position:relative;white-space:nowrap}
+  h1.hero .em::after{
+    content:""; position:absolute; left:0; right:0; bottom:.06em; height:.07em;
+    background:var(--grad); opacity:.55; border-radius:2px;
+  }
+  .hero-sub{
+    margin-top:30px; max-width:54ch;
+    font-size:clamp(1.02rem,1.7vw,1.22rem);
+    color:var(--bone-dim); line-height:1.6;
+  }
+  .hero-cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn{
+    font-family:"Instrument Sans"; font-weight:600; font-size:15px;
+    padding:13px 24px; border-radius:100px; cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;
+    transition:transform .25s var(--ease), box-shadow .3s, background .3s, border-color .3s;
+  }
+  .btn-primary{background:var(--grad); color:#0A0F0D; box-shadow:0 6px 30px rgba(135,224,180,.22)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 38px rgba(135,224,180,.36)}
+  .btn-ghost{border:1px solid var(--line-strong); color:var(--bone)}
+  .btn-ghost:hover{border-color:var(--moss);transform:translateY(-2px)}
+  .btn svg{width:15px;height:15px}
+
+  .scroll-hint{
+    position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+    z-index:2; font-family:"Space Mono",monospace; font-size:11px;
+    letter-spacing:.25em; color:var(--mute); text-transform:uppercase;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .scroll-hint .dot{width:5px;height:5px;border-radius:50%;background:var(--moss);animation:fall 1.8s var(--ease) infinite}
+  @keyframes fall{0%{transform:translateY(-7px);opacity:0}40%{opacity:1}100%{transform:translateY(9px);opacity:0}}
+
+  /* ---------- SECTIONS ---------- */
+  section{position:relative;padding:108px 0}
+  .sec-head{max-width:62ch;margin-bottom:54px}
+  .sec-head .eyebrow{margin-bottom:20px}
+  h2{
+    font-family:"Bricolage Grotesque"; font-weight:600;
+    font-size:clamp(1.9rem,4vw,3rem); line-height:1.08; letter-spacing:-.03em;
+  }
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:start}
+  .about-grid p{color:var(--bone-dim);margin-bottom:22px;font-size:1.08rem}
+  .about-grid p:last-child{margin-bottom:0}
+  .about-grid p strong{color:var(--bone);font-weight:600}
+  .creed{
+    border:1px solid var(--line); border-radius:20px; padding:34px 32px;
+    background:linear-gradient(180deg,var(--panel),var(--bg-soft));
+  }
+  .creed h3{font-family:"Bricolage Grotesque";font-weight:600;font-size:1.05rem;letter-spacing:.02em;margin-bottom:22px;color:var(--bone)}
+  .creed ul{list-style:none;display:flex;flex-direction:column;gap:16px}
+  .creed li{display:flex;gap:14px;align-items:flex-start;font-size:1rem;color:var(--bone-dim)}
+  .creed li b{display:block;color:var(--bone);font-weight:600;font-family:"Bricolage Grotesque"}
+  .leaf{flex:0 0 auto;width:26px;height:26px;margin-top:1px}
+  @media(max-width:840px){.about-grid{grid-template-columns:1fr;gap:38px}}
+
+  /* APPROACH */
+  .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .card{
+    border:1px solid var(--line); border-radius:18px; padding:30px 28px;
+    background:var(--panel); position:relative; overflow:hidden;
+    transition:transform .4s var(--ease), border-color .4s, background .4s;
+  }
+  .card::before{
+    content:""; position:absolute; left:0; top:0; height:100%; width:3px;
+    background:var(--grad); opacity:0; transition:opacity .4s;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--line-strong);background:var(--panel-2)}
+  .card:hover::before{opacity:.9}
+  .card .k{font-family:"Space Mono",monospace;font-size:12px;color:var(--moss);letter-spacing:.12em}
+  .card h3{font-family:"Bricolage Grotesque";font-weight:600;font-size:1.32rem;margin:14px 0 12px;letter-spacing:-.01em}
+  .card p{color:var(--bone-dim);font-size:1.01rem;line-height:1.58}
+  @media(max-width:720px){.cards{grid-template-columns:1fr}}
+
+  /* SKILLS */
+  .skill-block{margin-bottom:38px}
+  .skill-block:last-child{margin-bottom:0}
+  .skill-block .label{
+    font-family:"Space Mono",monospace;font-size:12.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--amber);margin-bottom:18px;display:block;
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:11px}
+  .chip{
+    border:1px solid var(--line-strong); border-radius:100px;
+    padding:9px 18px; font-size:14.5px; color:var(--bone);
+    background:rgba(255,255,255,.015); transition:border-color .3s, color .3s, transform .25s, background .3s;
+  }
+  .chip:hover{border-color:var(--moss);color:#fff;transform:translateY(-2px);background:rgba(135,224,180,.07)}
+
+  /* EDUCATION */
+  .edu{display:flex;flex-direction:column}
+  .edu-row{
+    display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;
+    padding:30px 0;border-top:1px solid var(--line);
+  }
+  .edu-row:last-child{border-bottom:1px solid var(--line)}
+  .edu-row .node{
+    width:13px;height:13px;border-radius:50%;margin-top:9px;
+    background:var(--grad); box-shadow:0 0 0 5px rgba(135,224,180,.10);
+  }
+  .edu-row h3{font-family:"Bricolage Grotesque";font-weight:600;font-size:1.42rem;letter-spacing:-.01em}
+  .edu-row .field{font-family:"Space Mono",monospace;font-size:12.5px;color:var(--mute);letter-spacing:.12em;text-transform:uppercase;margin-top:6px}
+  .edu-row p{color:var(--bone-dim);margin-top:12px;max-width:60ch}
+
+  /* CONTACT */
+  #contact{padding-bottom:60px}
+  .contact-box{
+    border:1px solid var(--line); border-radius:26px;
+    padding:clamp(40px,6vw,72px);
+    background:
+      radial-gradient(600px 300px at 80% 0%, rgba(135,224,180,.10), transparent 60%),
+      radial-gradient(500px 280px at 0% 100%, rgba(240,184,96,.09), transparent 60%),
+      var(--panel);
+    text-align:center;
+  }
+  .contact-box h2{margin-bottom:18px}
+  .contact-box p{color:var(--bone-dim);max-width:50ch;margin:0 auto 32px;font-size:1.1rem}
+  .mail{
+    font-family:"Bricolage Grotesque";font-weight:600;
+    font-size:clamp(1.15rem,2.6vw,1.7rem);letter-spacing:-.01em;
+    display:inline-flex;align-items:center;gap:12px;padding-bottom:4px;
+    border-bottom:1px solid var(--line-strong);transition:border-color .3s,gap .3s;
+  }
+  .mail:hover{border-color:var(--moss);gap:16px}
+  .mail .grad-text{font-weight:700}
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 0;
+    display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    color:var(--mute);font-size:13.5px;font-family:"Space Mono",monospace;letter-spacing:.04em;
+  }
+  footer a:hover{color:var(--bone)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="brand" href="#top"><span class="mark">AS</span>Abhishek&nbsp;Saini</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#approach">Approach</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header id="top">
+  <canvas id="roots"></canvas>
+  <div class="wrap">
+    <span class="eyebrow hero-eyebrow">Abhishek&nbsp;Saini — India</span>
+    <h1 class="hero">Tech for <span class="em grad-text">humans</span>, not humans for tech.</h1>
+    <p class="hero-sub">A self-taught builder using AI to turn human-centered ideas into real things — rooted in nature, effort, and a quiet belief that the way forward is also a way back to our roots.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">Get in touch
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#about">What I believe</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><span class="dot"></span>Scroll</div>
+</header>
+
+<main>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Who I am</span>
+      <h2>I value human life, honest effort, and nature — in that order, always.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I come from a lower-middle-class family in India, and that shaped how I see everything. I'm a <strong>god-loving person</strong>, and I believe technology should serve people, not the other way around.</p>
+        <p>I'm convinced that a safe, sustainable future isn't only ahead of us — a lot of it lives behind us, in the <strong>roots we've drifted away from</strong>. So I try to build with that balance: forward-looking tools held to grounded values.</p>
+        <p>I'm not a traditional coder. I'm a <strong>visualizer</strong> — I see a concept clearly before it exists, then use AI as my pair to bring it to life. People around me come to me for a perspective on all sorts of things, and that range is something I lean into rather than narrow.</p>
+      </div>
+      <aside class="creed reveal">
+        <h3>What guides the work</h3>
+        <ul>
+          <li>
+            <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F0B860"/><stop offset="1" stop-color="#87E0B4"/></linearGradient></defs><path d="M11 20A7 7 0 0 1 4 13c0-5 5-9 12-10 0 6-2 14-5 17Z"/><path d="M6 18c3-4 6-6 9-7"/></svg>
+            <span><b>People first</b>Every build answers to a human need before anything else.</span>
+          </li>
+          <li>
+            <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M12 8c0-3 2-5 6-5 0 3-2 5-6 5Z"/><path d="M12 12c0-3-2-5-6-5 0 3 2 5 6 5Z"/></svg>
+            <span><b>Rooted in nature</b>If it doesn't respect the earth, it isn't progress.</span>
+          </li>
+          <li>
+            <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="3.4"/></svg>
+            <span><b>Effort is sacred</b>Honest work — mine and others' — is worth honoring.</span>
+          </li>
+          <li>
+            <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="url(#g1)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            <span><b>Faith &amp; humility</b>I build small, grateful, and with the long view in mind.</span>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="approach">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How I work</span>
+      <h2>I picture it fully — then build it with AI as my pair.</h2>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <span class="k">01 / SEE</span>
+        <h3>Visualize first</h3>
+        <p>I picture a concept completely before a single line of it exists. Getting the idea right up front saves everything downstream.</p>
+      </div>
+      <div class="card reveal">
+        <span class="k">02 / BUILD</span>
+        <h3>Build with AI</h3>
+        <p>I "vibe code" — pairing with AI to turn ideas into working apps, agents, and automations, without pretending to be something I'm not.</p>
+      </div>
+      <div class="card reveal">
+        <span class="k">03 / TEST</span>
+        <h3>Human &amp; sustainable</h3>
+        <p>Every choice gets one test: does it serve a person and respect nature? If the answer is no, it isn't worth building.</p>
+      </div>
+      <div class="card reveal">
+        <span class="k">04 / CONNECT</span>
+        <h3>Range over silos</h3>
+        <p>I think across domains — from policy to pharmacy to tech — and people come to me precisely for that wide-angle view.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What I do</span>
+      <h2>A toolkit built around ideas, not job titles.</h2>
+    </div>
+    <div class="reveal">
+      <div class="skill-block">
+        <span class="label">Building with AI</span>
+        <div class="chips">
+          <span class="chip">AI-assisted development</span>
+          <span class="chip">Building AI apps</span>
+          <span class="chip">AI agents &amp; automation</span>
+          <span class="chip">No-code / low-code</span>
+          <span class="chip">Prompt engineering</span>
+          <span class="chip">Python (AI-assisted)</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="label">Thinking</span>
+        <div class="chips">
+          <span class="chip">Concept visualization</span>
+          <span class="chip">Problem framing</span>
+          <span class="chip">Cross-domain advising</span>
+          <span class="chip">Turning ideas into plans</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="label">Values in practice</span>
+        <div class="chips">
+          <span class="chip">Human-centered approach</span>
+          <span class="chip">Sustainability mindset</span>
+          <span class="chip">Empathy &amp; listening</span>
+          <span class="chip">Social impact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Foundations</span>
+      <h2>Where my thinking was shaped.</h2>
+    </div>
+    <div class="edu reveal">
+      <div class="edu-row">
+        <span class="node"></span>
+        <div>
+          <h3>Diploma in Pharmacy</h3>
+          <span class="field">Science &amp; care</span>
+          <p>An early grounding in science, precision, and the responsibility that comes with anything meant to help people.</p>
+        </div>
+      </div>
+      <div class="edu-row">
+        <span class="node"></span>
+        <div>
+          <h3>BA, Political Science</h3>
+          <span class="field">Society &amp; systems</span>
+          <p>How people, power, and society fit together — the lens I still use when I think about who technology is really for.</p>
+        </div>
+      </div>
+      <div class="edu-row">
+        <span class="node"></span>
+        <div>
+          <h3>Self-taught Vibe Coder</h3>
+          <span class="field">Ongoing</span>
+          <p>Learning by building, with AI as my teacher and pair. No classroom — just curiosity, ideas, and the will to make them real.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <span class="eyebrow" style="justify-content:center">Get in touch</span>
+      <h2 style="margin-top:18px">Have an idea worth building?</h2>
+      <p>Or just want a perspective on something. I'm always up for a good conversation.</p>
+      <a class="mail" href="mailto:abhishek@sainiweb.in">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.4"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <span class="grad-text">abhishek@sainiweb.in</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Abhishek Saini</span>
+  <span>Rooted &amp; forward-looking · sainiweb.in</span>
+</footer>
+
+<script>
+/* ---------- nav scroll state ---------- */
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>40);
+onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.14,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- growing roots canvas (the signature) ---------- */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas=document.getElementById('roots');
+  const ctx=canvas.getContext('2d');
+  const header=document.getElementById('top');
+  let w,h,dpr;
+
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    w=header.clientWidth; h=header.clientHeight;
+    canvas.width=w*dpr; canvas.height=h*dpr;
+    canvas.style.width=w+'px'; canvas.style.height=h+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+  size();
+
+  // Each filament is a root growing upward from the bottom, swaying, occasionally branching.
+  let segs=[];
+  function spawn(x,y,angle,len,gen){
+    segs.push({x,y,angle,vlen:len,len:0,gen,sway:Math.random()*Math.PI*2,branched:false,done:false});
+  }
+  function seed(){
+    segs=[];
+    const count = w<640 ? 5 : w<1000 ? 8 : 11;
+    for(let i=0;i<count;i++){
+      const x = (w/(count+1))*(i+1) + (Math.random()*60-30);
+      spawn(x, h+6, -Math.PI/2 + (Math.random()*0.5-0.25), h*(0.34+Math.random()*0.42), 0);
+    }
+  }
+  seed();
+
+  function colorAt(t){ // t: 0 root(amber) -> 1 tip(moss)
+    const a=[240,184,96], b=[135,224,180];
+    const r=Math.round(a[0]+(b[0]-a[0])*t);
+    const g=Math.round(a[1]+(b[1]-a[1])*t);
+    const bl=Math.round(a[2]+(b[2]-a[2])*t);
+    return r+','+g+','+bl;
+  }
+
+  let t0=performance.now();
+  function draw(now){
+    const dt=Math.min((now-t0)/1000,0.05); t0=now;
+    ctx.clearRect(0,0,w,h);
+    ctx.globalCompositeOperation='lighter';
+
+    for(let i=0;i<segs.length;i++){
+      const s=segs[i];
+      if(!s.done && s.len<s.vlen){
+        s.len += s.vlen*0.20*dt*(reduce?6:1); // grow
+        if(reduce) s.len=s.vlen;
+        // branch once, partway up
+        if(!s.branched && s.gen<2 && s.len>s.vlen*0.5){
+          s.branched=true;
+          const dir=Math.random()<0.5?1:-1;
+          spawn(s.x+Math.cos(s.angle)*s.len, s.y+Math.sin(s.angle)*s.len,
+                s.angle+dir*(0.35+Math.random()*0.3), s.vlen*0.55, s.gen+1);
+        }
+        if(s.len>=s.vlen) s.done=true;
+      }
+
+      const steps=Math.max(2,Math.floor(s.len/9));
+      ctx.beginPath();
+      for(let k=0;k<=steps;k++){
+        const f=k/steps;
+        const cur=f*s.len;
+        const swayAmt=Math.sin(now/2600 + s.sway + f*3)*(6+s.gen*2)*f;
+        const px=s.x+Math.cos(s.angle)*cur + Math.cos(s.angle+Math.PI/2)*swayAmt;
+        const py=s.y+Math.sin(s.angle)*cur + Math.sin(s.angle+Math.PI/2)*swayAmt;
+        if(k===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+      }
+      const tip=Math.min(1,(s.gen*0.3)+ (s.len/h)*1.1);
+      const alpha=0.16+0.10*(s.gen===0?1:0.7);
+      ctx.strokeStyle='rgba('+colorAt(tip)+','+alpha+')';
+      ctx.lineWidth=Math.max(0.5,2.0-s.gen*0.6);
+      ctx.shadowColor='rgba('+colorAt(tip)+',0.5)';
+      ctx.shadowBlur=10;
+      ctx.stroke();
+
+      // glowing tip node
+      if(s.done){
+        const ex=s.x+Math.cos(s.angle)*s.len + Math.cos(s.angle+Math.PI/2)*Math.sin(now/2600+s.sway+3)*(6+s.gen*2);
+        const ey=s.y+Math.sin(s.angle)*s.len + Math.sin(s.angle+Math.PI/2)*Math.sin(now/2600+s.sway+3)*(6+s.gen*2);
+        const pulse=1.6+Math.sin(now/900+s.sway)*0.7;
+        ctx.beginPath();
+        ctx.arc(ex,ey,pulse,0,Math.PI*2);
+        ctx.fillStyle='rgba('+colorAt(tip)+',0.8)';
+        ctx.fill();
+      }
+    }
+    ctx.shadowBlur=0;
+    ctx.globalCompositeOperation='source-over';
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  let rt;
+  window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{size();seed();},200);});
+})();
+</script>
+</body>
+</html>
